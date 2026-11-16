@@ -4,4 +4,4 @@
 ```
 npm install
 ```
-**Add .env in the server folder than add DATABASE= , JWT= **
+**Add .env in the server folder than add DATABASE= , JWT=**
