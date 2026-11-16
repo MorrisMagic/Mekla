@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, MapPin, RotateCcw, Soup } from "lucide-react";
 import { Navigate, useNavigate } from "react-router-dom";
-function HomePage() {
+function LoginPage() {
   const [Show, setShow] = useState(false);
   const navigate = useNavigate();
 
@@ -85,4 +85,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default LoginPage;
