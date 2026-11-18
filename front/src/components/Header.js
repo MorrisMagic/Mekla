@@ -24,7 +24,14 @@ function Header() {
         >
           Packets
         </NavLink>
-        <p className="hover:cursor-pointer">My orders</p>
+        <NavLink
+          to={"/myorder"}
+          className={({ isActive }) =>
+            `hover:cursor-pointer ${isActive ? `text-[#C2381B]` : ""}`
+          }
+        >
+          <p className="hover:cursor-pointer">My orders</p>
+        </NavLink>
       </div>
       <div className="flex flex-row gap-2 items-center bg-[#FFF8F1] border p-3 px-5 text-sm rounded-3xl">
         <MapPin className="text-[#C2381B]" />

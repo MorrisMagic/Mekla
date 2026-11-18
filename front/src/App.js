@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import PacketsPage from "./pages/PacketsPage";
 import Header from "./components/Header";
+import MyOrderPage from "./pages/MyOrderPage";
 function App() {
   const { pathname } = useLocation();
   const HeaderCondintion = !["/login", "/signup"].includes(pathname);
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/packets" element={<PacketsPage />} />
+        <Route path="/myorder" element={<MyOrderPage />} />
       </Routes>
     </>
   );
