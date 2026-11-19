@@ -1,8 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 function SignupPage() {
   const [Show, setShow] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [Lastname, setLastname] = useState("");
+  const [Phone, setPhone] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+
+  const Signup = async () => {
+    await axios.post("http://localhost:8080/signup", {
+      firstName,
+      Lastname,
+      Email,
+      Phone,
+      Password,
+    });
+  };
+
   const navigate = useNavigate();
   return (
     <div className="grid grid-cols-2 h-screen">
@@ -50,24 +66,32 @@ function SignupPage() {
         <div className="flex flex-col gap-1">
           <label className="font-medium">First name</label>
           <input
-            className="w-96 border-[#8F8176] border-[1px] p-3 rounded-xl"
-            type="email"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            className="w-96  border-[#8F8176] border-[1px] p-3 rounded-xl"
+            type="text"
           />
           <label className="font-medium">Last name</label>
           <input
-            className="w-96 border-[#8F8176] border-[1px] p-3 rounded-xl"
-            type="email"
+            value={Lastname}
+            onChange={(e) => setLastname(e.target.value)}
+            className="w-96  border-[#8F8176] border-[1px] p-3 rounded-xl"
+            type="text"
           />
           <label className="font-medium">Email</label>
           <input
-            className="w-96 border-[#8F8176] border-[1px] p-3 rounded-xl"
+            value={Email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-96  border-[#8F8176] border-[1px] p-3 rounded-xl"
             type="email"
             placeholder="you@example.com"
           />
           <label className="font-medium">Phone</label>
           <input
-            className="w-96 border-[#8F8176] border-[1px] p-3 rounded-xl"
-            type="email"
+            value={Phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-96  border-[#8F8176] border-[1px] p-3 rounded-xl"
+            type="text"
           />
           <div className="flex flex-row justify-between items-center">
             <label className="font-medium">Password</label>
@@ -75,7 +99,9 @@ function SignupPage() {
           </div>
           <div className="relative w-96">
             <input
-              className="w-full border-[#8F8176] border-[1px] p-3 pr-16 rounded-xl"
+              value={Password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full  border-[#8F8176] border-[1px] p-3 pr-16 rounded-xl"
               type={Show ? "text" : "password"}
             />
             <button
@@ -91,7 +117,10 @@ function SignupPage() {
               I agree to the Terms of Service and Privacy Policy.
             </p>
           </div>
-          <button className="w-full bg-[#C2381B] p-3 rounded-xl mt-5 text-white font-semibold">
+          <button
+            onClick={() => Signup()}
+            className="w-full bg-[#C2381B] p-3 rounded-xl mt-5 text-white font-semibold"
+          >
             Create account
           </button>
           <hr className="bg-gray-400 mt-5 mb-3" />

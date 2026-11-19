@@ -1,0 +1,31 @@
+package main
+
+import (
+	"os"
+
+	"github.com/MorrisMagic/Mekla.git/controllers"
+	"github.com/MorrisMagic/Mekla.git/initilaziers"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+)
+
+func init() {
+	initilaziers.LoadEnv()
+	initilaziers.ConnectDB()
+	initilaziers.SyncModel()
+}
+
+func main() {
+	app := gin.Default()
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders: []string{"Origin", "Content-Type", "Authorization"},
+	}))
+	app.POST("/signup", controllers.CreateUser)
+	app.GET("/x", func(ctx *gin.Context) {
+		ctx.String(200, "hello")
+	})
+
+	app.Run(os.Getenv("PORT"))
+}
