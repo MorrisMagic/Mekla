@@ -7,7 +7,7 @@ import (
 )
 
 func SyncModel() {
-	err := DB.AutoMigrate(&models.User{})
+	err := DB.AutoMigrate(&models.User{}, &models.Menu{})
 	if err != nil {
 		panic(fmt.Sprintf("Error migrating database: %v", err))
 	}

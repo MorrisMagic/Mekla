@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 import { Box, MapPin, RotateCcw, Soup } from "lucide-react";
 import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 function LoginPage() {
   const [Show, setShow] = useState(false);
   const navigate = useNavigate();
+
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+
+  const login = async () => {
+    await axios
+      .post("http://localhost:8080/login", { Email, Password })
+      .then(() => window.location.reload());
+  };
 
   return (
     <div className="grid grid-cols-2 h-screen">
@@ -17,6 +27,8 @@ function LoginPage() {
         <div className="flex flex-col gap-2">
           <label className="font-medium">Email</label>
           <input
+            value={Email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-96 border-[#8F8176] border-[1px] p-3 rounded-xl"
             type="email"
             placeholder="you@example.com"
@@ -27,6 +39,8 @@ function LoginPage() {
           </div>
           <div className="relative w-96">
             <input
+              value={Password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full border-[#8F8176] border-[1px] p-3 pr-16 rounded-xl"
               type={Show ? "text" : "password"}
               placeholder="Enter your password"
@@ -44,7 +58,10 @@ function LoginPage() {
               Keep me logged in on this device
             </p>
           </div>
-          <button className="w-full bg-[#C2381B] p-3 rounded-xl mt-5 text-white font-semibold">
+          <button
+            onClick={() => login()}
+            className="w-full bg-[#C2381B] p-3 rounded-xl mt-5 text-white font-semibold"
+          >
             Log in
           </button>
           <hr className="bg-gray-400 mt-5 mb-3" />

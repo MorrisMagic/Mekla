@@ -1,9 +1,16 @@
+import axios from "axios";
 import { Locate, MapPin, ShoppingCart } from "lucide-react";
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-function Header() {
+function Header({ user }) {
   const navigation = useNavigate();
+  console.log(user.user);
+  const logout = async () => {
+    await axios
+      .get("http://localhost:8080/logout")
+      .then(() => window.location.reload());
+  };
   return (
     <div className="bg-white  flex flex-row justify-between border-b-[1px] p-5 items-center">
       <div className="flex flex-row gap-10 items-center font-medium">
@@ -42,18 +49,31 @@ function Header() {
           <ShoppingCart />
           <p>Cart</p>
         </div>
-        <p
-          onClick={() => navigation("/login")}
-          className="font-medium hover:cursor-pointer"
-        >
-          Log in{" "}
-        </p>
-        <p
-          onClick={() => navigation("/signup")}
-          className="bg-[#C2381B] hover:cursor-pointer text-base p-[10px] px-4 rounded-3xl text-white font-medium"
-        >
-          Sign up
-        </p>
+        {user ? (
+          <>
+            <p
+              onClick={() => logout()}
+              className="font-medium hover:cursor-pointer"
+            >
+              Log out{" "}
+            </p>
+          </>
+        ) : (
+          <>
+            <p
+              onClick={() => navigation("/login")}
+              className="font-medium hover:cursor-pointer"
+            >
+              Log in{" "}
+            </p>
+            <p
+              onClick={() => navigation("/signup")}
+              className="bg-[#C2381B] hover:cursor-pointer text-base p-[10px] px-4 rounded-3xl text-white font-medium"
+            >
+              Sign up
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

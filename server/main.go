@@ -18,13 +18,18 @@ func init() {
 func main() {
 	app := gin.Default()
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: []string{"http://localhost:3000"},
-		AllowMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowHeaders: []string{"Origin", "Content-Type", "Authorization"},
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		AllowCredentials: true,
 	}))
 	app.POST("/signup", controllers.CreateUser)
-	app.GET("/x", func(ctx *gin.Context) {
-		ctx.String(200, "hello")
+	app.POST("/login", controllers.LoginUser)
+	app.POST("/user", controllers.User)
+	app.GET("/logout", controllers.Logout)
+
+	app.GET("/health", func(ctx *gin.Context) {
+		ctx.String(200, "health 100%")
 	})
 
 	app.Run(os.Getenv("PORT"))

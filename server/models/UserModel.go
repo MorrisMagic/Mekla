@@ -8,5 +8,5 @@ type User struct {
 	Last_name       string
 	Email           string `gorm:"unique"`
 	Phone           string
-	Password_hashed string
+	Password_hashed string `json:"-"`
 }
