@@ -8,6 +8,7 @@ type Menu struct {
 	Resturant    string
 	Type         string
 	Rate         int
-	deliveryType string
+	DeliveryType string
 	Price        int
+	Photo        string
 }

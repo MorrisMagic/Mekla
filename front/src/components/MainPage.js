@@ -1,73 +1,18 @@
+import axios from "axios";
 import { CarIcon, Search, Star } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 function MainPage() {
   const [search, setSearch] = useState("");
-  const [orders, setorder] = useState([
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-  ]);
+  const [orders, setorder] = useState([]);
+
+  const allmenu = async () => {
+    const respone = await axios.get("http://localhost:8080/allmenu");
+    setorder(respone.data);
+  };
+  useEffect(() => {
+    allmenu();
+  }, []);
+
   return (
     <div className="p-20 h-screen ">
       <div className="grid grid-cols-2 gap-7 items-center justify-center ">
@@ -193,32 +138,37 @@ function MainPage() {
           </div>
         </div>
         <div className=" flex flex-row flex-wrap p-7 pt-1  gap-7 mt-14">
-          {orders.map((order) => (
-            <div className="border bg-white w-[375px] h-[372px] rounded-2xl">
+          {orders?.map((order, index) => (
+            <div
+              key={index}
+              className="border bg-white w-[375px] h-[372px] rounded-2xl"
+            >
               <div>
                 <img
                   className="h-[200px] object-cover z-1 rounded-t-2xl"
-                  src={order.img}
+                  src={`/assets/${order.Photo}`}
                   width={375}
                   alt="burger"
                 />
               </div>
               <div className="p-4 flex flex-col gap-1">
-                <p className="font-bold">{order.title}</p>
-                <p className="text-xs text-gray-500">{order.resturant}</p>
+                <p className="font-bold">{order.Title}</p>
+                <p className="text-xs text-gray-500">
+                  {order.Resturant} . {order.Type}
+                </p>
                 <div className="flex flex-row gap-1 items-center">
                   <Star width={17} />
-                  <p className="text-base text-gray-700">{order.rate}</p>
+                  <p className="text-base text-gray-700">{order.Rate}</p>
                   <div className="flex pl-4 flex-row gap-2">
                     <CarIcon width={18} color="gray" />
                     <p className="text-gray-600 text-sm">
-                      {order.delivery} delivery
+                      {order.DeliveryType} delivery
                     </p>
                   </div>
                 </div>
               </div>
               <div className="p-4 flex flex-row items-center justify-between">
-                <p className="font-bold text-lg">${order.price} TND</p>
+                <p className="font-bold text-lg">${order.Price} TND</p>
                 <button className="text-base font-medium text-white bg-red-700 p-[6px] px-4 rounded-2xl">
                   Order now
                 </button>

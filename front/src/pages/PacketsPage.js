@@ -1,35 +1,19 @@
+import axios from "axios";
 import { MapPin, Star, TimerReset } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 function PacketsPage() {
   const [Counter, setCounter] = useState(1);
-  const [orders, setorder] = useState([
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-    {
-      img: "/assets/burger.jpg",
-      title: "Smash burger box",
-      resturant: "Burger Foundry . Burgers",
-      rate: "4.7",
-      delivery: "free",
-      price: "13",
-    },
-  ]);
+  const [orders, setorder] = useState([]);
+
+  const allmenu = async () => {
+    const respone = await axios.get("http://localhost:8080/allmenu");
+    setorder(respone.data);
+  };
+  useEffect(() => {
+    allmenu();
+  }, []);
 
   const slidePics = [
     {
@@ -251,22 +235,22 @@ function PacketsPage() {
       <div className="p-5 mt-10 w-[1300px] ">
         <h1 className="text-2xl font-bold">More from Burger Foundry</h1>
         <div className=" flex flex-row w-full flex-wrap p-2 mt-5 gap-6">
-          {orders.map((order) => (
+          {orders.map((order, index) => (
             <NavLink
               to={"/packets"}
               className="border bg-white w-[320px] hover:cursor-pointer h-[200px] rounded-2xl"
             >
-              <div>
+              <div key={index}>
                 <img
                   className="h-[140px] object-cover z-1 rounded-t-2xl"
-                  src={order.img}
+                  src={`/assets/${order.Photo}`}
                   width={375}
                   alt="burger"
                 />
               </div>
               <div className="p-3 flex flex-row justify-between ">
-                <p className="font-bold">{order.title}</p>
-                <p className="font-bold text-base">${order.price} TND</p>
+                <p className="font-bold">{order.Title}</p>
+                <p className="font-bold text-base">${order.Price} TND</p>
               </div>
             </NavLink>
           ))}

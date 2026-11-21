@@ -28,6 +28,8 @@ func main() {
 	app.POST("/user", controllers.User)
 	app.GET("/logout", controllers.Logout)
 
+	app.GET("/allmenu", controllers.AllMenu)
+
 	app.GET("/health", func(ctx *gin.Context) {
 		ctx.String(200, "health 100%")
 	})
